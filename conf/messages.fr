@@ -1,0 +1,7 @@
+# You can specialize this file for each language.
+# For example, for French create a messages.fr file
+#
+validation.required = %s est un champ obligatoire
+header = Singapour  ...{ 新加坡 }
+ongoing_tasks = choses à faire !
+task.title = oh, une nouvelle tâche...

@@ -1,0 +1,44 @@
+# Configuring your git environment
+git config --global user.name "John Doe"
+
+# list your git settings
+git config --list
+
+
+
+# using git
+# stage files : 
+git add myfile
+
+# commit files (locally)
+git commit myfile
+
+# check what's going on
+git status
+
+# rename or delete a file
+git mv myfile myrenamedfile
+git rm myfiletobedeleted
+git rm *.class
+
+# check who did what
+git log
+git log --since=1.hours
+git log --since=2.weeks
+
+# add your repo to github (first time)
+git remote add origin git@github.com:nicobeez/Tasks.git
+
+#push changes from local repository (master) to github.com (origin) :
+git push -u origin master
+
+# changing the commit comment / adding forgotten files to the last commit
+git commit --amend
+
+# unstage a changed file previously comitted
+git reset HEAD myfile
+
+# undo changes to a file
+git checkout -- myfile
+
+

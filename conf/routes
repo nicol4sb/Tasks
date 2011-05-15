@@ -1,0 +1,24 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                                       Application.index
+
+# Map static resources from the /app/public folder to the /public path
+GET     /public/                                staticDir:public
+
+# Catch all
+*       /{controller}/{action}                  {controller}.{action}
+
+# custom
+GET    /delete 				 				Application.delete
+GET	   /completeBudget						Application.getCompleteBudget
+GET    /task/{id}/toggleStar	            Application.toggleStar
+GET    /task/{id}/toggleDone	            Application.toggleDone
+
+GET    /task/{id}/content		            Application.getTaskContent
+GET    /task/{id}/budget		            Application.getTaskBudget
+
+POST   /task/{id}/updateContent	    		Application.updateTaskContent
+POST   /task/{id}/updateBudget	            Application.updateBudget

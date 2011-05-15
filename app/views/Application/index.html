@@ -1,0 +1,111 @@
+#{extends 'main.html' /} #{set title:'Home' /}
+
+<script src="@{'/public/javascripts/jquery.jeditable.mini.js'}"
+	type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript" charset="utf-8">
+$(function() {
+
+	#{list tasks, as:'task'}
+
+	$("#taskContent${task.id}").editable("/task/${task.id}/updateContent", {
+		  loadurl   : '/task/${task.id}/content',
+		  type      : "textarea",
+	      submit    : "OK",
+	      cancel    : "Cancel"
+		});
+
+	$("#taskBudget${task.id}").editable("/task/${task.id}/updateBudget", {
+		  loadurl   : '/task/${task.id}/budget',
+		  type      : "text",
+	      submit    : "OK",
+	      cancel    : "Cancel",
+    	  callback : function(value, settings) {
+    		  $.ajax({
+    		         url:    '/completeBudget', 
+    		         success: function(monthlyBudget) {
+    		        	 		$("monthlyBudget").text(monthlyBudget);
+    		         		  }
+    		    });    
+    	     }
+		});
+
+	
+	$("#taskStar${task.id}").click(function(){
+		$.ajax({
+			  url: "/task/${task.id}/toggleStar",
+			  success:function(){
+				  if($("#taskStar${task.id}").text().trim()=="☆"){
+					  $("#taskStar${task.id}").text("★");
+				  }else{
+					  $("#taskStar${task.id}").text("☆");
+				  }
+			  }
+			});
+	})
+	
+	$("#taskTitle${task.id}").click(function(){
+		$.ajax({
+			  url: "/task/${task.id}/toggleDone",
+			  success:function(){
+				  if($("#taskTitle${task.id}").html().trim().substring(0,3)!="<s>"){
+					  $("#taskTitle${task.id}").html("<s>${task.title}</s>");
+					  $("taskNumber").text($("taskNumber").text()-1);
+				  }else{
+					  $("#taskTitle${task.id}").html("${task.title}");
+					  $("taskNumber").text(parseFloat($("taskNumber").text())+1);
+				  }
+			  }
+			});
+	})
+		
+	#{/list}
+
+});
+</script>
+
+
+<div id="header">
+<div id="logo">&{'header'}</div>
+<div id="title"><span class="about">About this application</span>
+<h1><a href="@{Application.index()}"> <taskNumber>${numberOfOpenTasks}</taskNumber>
+&{'ongoing_tasks'}</a></h1><h2>budget mensuel <monthlyBudget>${monthlyBudget}</monthlyBudget> SGD</h2>
+</div>
+</div>
+
+
+
+#{list tasks, as:'task'}
+
+<div class="task">
+<h2 class="post-title" id="taskTitle${task.id}">#{if task.done}<s>${task.title}</s>#{/if}
+#{else}${task.title}#{/else}</h2>
+<div class="post-metadata"><span class="post-date">
+${task.createdAt.since(false)} </span> - <span id="taskStar${task.id}">
+#{if !task.starred}☆#{/if} #{else}★#{/else} </span> - 
+	<span id="taskBudget${task.id}"> ${task.budget} </span><span> SGD</span> 
+	- 
+	<a href="@{delete(task)}"> 
+	<img src="@{'/public/images/trash.png'}" class="trash" /> 
+	</a>
+	</div>
+<br />
+<div id="taskContent${task.id}" class="post-content">
+${task.content.nl2br()}</div>
+
+</div>
+<br />
+#{/list}
+
+<br />
+<br />
+<br />
+
+#{form @add()}
+<div>
+<p><input type="text" name="task.title" /> <label for="task.title">&{'task.title'}</label>
+</p>
+<p><textarea name="task.content" id="content"></textarea></p>
+<p><input type="submit" value="Save" /></p>
+</div>
+#{/form}
