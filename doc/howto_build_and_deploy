@@ -1,4 +1,13 @@
 # install play framework
 
+# add war/WEB-INF/appengine-web.xml containing the below :
+<appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
+	<application>your google app id</application>
+	<version>your app version</version>
+</appengine-web-app>
+
+
 # eclipsify
+
+# build and deploy the software
 
