@@ -4,6 +4,9 @@ git config --global user.name "John Doe"
 # list your git settings
 git config --list
 
+# clone the remote repository
+git clone git://github.com/nicobeez/Tasks.git
+
 # stage files : 
 git add myfile
 
