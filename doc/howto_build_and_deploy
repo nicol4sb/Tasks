@@ -1,13 +1,19 @@
 # install play framework
+download play! and add the folder to your path (.profile file in your home folder on osx)
 
-# add war/WEB-INF/appengine-web.xml containing the below :
-<appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
-	<application>your google app id</application>
-	<version>your app version</version>
-</appengine-web-app>
+# install the gae and objectify modules
+play install gae
+play install objectify
 
+# if you wish to use Eclipse and have play! create the classpath file etc :
+play eclipsify Tasks
 
-# eclipsify
+# start the server see if it runs :
+cd Tasks && play test
 
-# build and deploy the software
+#deployment :
+# play and the gae plugin will have generated war/WEB-INF/appengine-web.xml
+# make sure you edit that with your settings
 
+# deploy the software
+play gae:deploy --gae=path_to_gae_sdk
