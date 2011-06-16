@@ -4,9 +4,6 @@ git config --global user.name "John Doe"
 # list your git settings
 git config --list
 
-
-
-# using git
 # stage files : 
 git add myfile
 
