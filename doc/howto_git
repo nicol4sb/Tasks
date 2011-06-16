@@ -4,6 +4,9 @@ git config --global user.name "John Doe"
 # list your git settings
 git config --list
 
+# clone the remote repository
+git clone git://github.com/nicobeez/Tasks.git
+
 # stage files : 
 git add myfile
 
@@ -27,7 +30,7 @@ git log --since=2.weeks
 git remote add origin git@github.com:nicobeez/Tasks.git
 
 #push changes from local repository (master) to github.com (origin) :
-git push -u origin master
+git push git@github.com:nicobeez/Tasks.git master
 
 # changing the commit comment / adding forgotten files to the last commit
 git commit --amend
