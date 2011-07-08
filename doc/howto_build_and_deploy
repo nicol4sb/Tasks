@@ -5,8 +5,10 @@ download play! and add the folder to your path (.profile file in your home folde
 play install gae
 play install objectify // api to simplify gae datastore access
 
-# if you wish to use Eclipse and have play! create the classpath file etc :
+# if you wish to use your favorite IDE and have play! create the IDE specific configs :
 play eclipsify Tasks
+play netBeansify Tasks
+...
 
 # start the server see if it runs :
 cd Tasks && play test
