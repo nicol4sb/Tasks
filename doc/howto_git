@@ -42,4 +42,6 @@ git reset HEAD myfile
 # undo changes to a file
 git checkout -- myfile
 
+# add files to the (git) ignored list, e.g. the ide or bin files
+vi .git/info/exclude
 
