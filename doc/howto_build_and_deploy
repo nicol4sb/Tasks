@@ -3,7 +3,7 @@ download play! and add the folder to your path (.profile file in your home folde
 
 # install the gae and objectify modules
 play install gae
-play install objectify
+play install objectify // api to simplify gae datastore access
 
 # if you wish to use Eclipse and have play! create the classpath file etc :
 play eclipsify Tasks
@@ -17,3 +17,5 @@ cd Tasks && play test
 
 # deploy the software
 play gae:deploy --gae=path_to_gae_sdk
+
+# enjoy...
