@@ -21,7 +21,6 @@ import javax.persistence.Transient;
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.QueryResultIterable;
 
-import play.cache.Cache;
 import play.data.validation.Required;
 import play.modules.objectify.Datastore;
 import play.modules.objectify.ObjectifyModel;
@@ -54,78 +53,36 @@ public class Task extends ObjectifyModel implements Serializable {
 
 	public static Collection<Task> findAll() {
 
-		// check the "all tasks" cache
-		Map<Long, Task> tasksMap = Cache.get(TASKS_MAP, Map.class);
+		// create the object, populate it, and update the cache map
+		Map tasksMap = new TreeMap<Long, Task>();
 
-		if (tasksMap == null) {
-			
-			System.out.println("Populating memcache");
-
-			// create the object, populate it, and update the cache map
-			tasksMap = new TreeMap<Long, Task>();
-
-			QueryResultIterable<Task> q = Datastore.query(Task.class)
-					.order("done").order("-starred").order("title").fetch();
-			for (Task task : q) {
-				tasksMap.put(task.id, task);
-			}
-
-			Cache.set(TASKS_MAP, tasksMap);
+		QueryResultIterable<Task> q = Datastore.query(Task.class).order("done")
+				.order("-starred").order("title").fetch();
+		
+		for (Task task : q) {
+			tasksMap.put(task.id, task);
 		}
-
+		
 		return tasksMap.values();
 	}
 
 	public static Task findById(Long id) {
-
-		Task task = null;
-
-		Map<Long, Task> tasksMap = Cache.get(TASKS_MAP, Map.class);
-
-		if (tasksMap == null) {
-			tasksMap = new TreeMap<Long, Task>();
-		}else{
-			System.out.println("Reading taskmap from cache.");
+		try {
+			return Datastore.get(Task.class, id);
+		} catch (EntityNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-
-		task = tasksMap.get(id);
-
-		// if the task is not in the cache, retrieve it from the datastore and
-		// cache it
-		if (task == null) {
-			try {
-				task = Datastore.get(Task.class, id);
-				tasksMap.put(id, task);
-				Cache.set(TASKS_MAP, tasksMap);
-			} catch (EntityNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}else{
-			System.out.println("Reading task from cache.");
-		}
-		
-		return task;
+		return null;
 	}
 
 	public void save() {
-
 		// persist the task
 		Datastore.put(this);
-
-		// Update the cache (think reordering) :
-		Cache.delete(TASKS_MAP);
-		Task.findAll(); // trigger the repopulation
-		System.out.println("Cache cleared and reloaded after save.");
 	}
 
 	public void delete() {
-
-		// update the persistence
 		Datastore.delete(this);
-
-		// update the "all tasks" cache
-		Cache.get(TASKS_MAP, Map.class).remove(this.id);
 	}
 
 }
