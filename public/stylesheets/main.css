@@ -1,7 +1,7 @@
 /** Main layout **/
 
 html, body {
-    background: #364B66 !important;
+    background: red !important;
     font-family: "Franklin Gothic Demi", Helvetica, Arial, Sans !important;
 }
 
@@ -108,7 +108,7 @@ body {
 
 #main {
     background: #314660;
-    background: -webkit-gradient(linear, left top, left 30%, from(#314660), to(#364B66));
+    background: -webkit-gradient(linear, left top, left 30%, from(#314660), to(red));
     -webkit-border-radius: 16px;
     -moz-border-radius: 16px;
     padding: 20px;
@@ -117,7 +117,7 @@ body {
 .task {
     padding: 10px;
     background: #253142;
-    background: -webkit-gradient(linear, left top, left 60%, from(#253142), to(#364B66));
+    background: -webkit-gradient(linear, left top, left 60%, from(#253142), to(red));
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
 }
@@ -284,7 +284,7 @@ h3 span {
 form {
     padding: 10px;
     background: #253142;
-    background: -webkit-gradient(linear, left top, left 60%, from(#253142), to(#364B66));
+    background: -webkit-gradient(linear, left top, left 60%, from(#253142), to(red));
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
 }
