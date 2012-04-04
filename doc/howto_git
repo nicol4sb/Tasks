@@ -27,11 +27,11 @@ git log
 git log --since=1.hours
 git log --since=2.weeks
 
-# add your repo to github (first time)
-git remote add origin git@github.com:nicobeez/Tasks.git
+# bookmark your repo as 'origin'
+git remote add tasks_remote git@github.com:nicobeez/Tasks.git
 
 #push changes from local repository (master) to github.com (origin) :
-git push git@github.com:nicobeez/Tasks.git master
+git push tasks_remote
 
 # changing the commit comment / adding forgotten files to the last commit
 git commit --amend
